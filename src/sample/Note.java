@@ -7,36 +7,23 @@ package sample;
  */
 public class Note extends CommonCode {
 
-    private int noteID = 0;
-    private String course = "";
-    private String dayte = "";
-    private String note = "";
+    private int noteID;
+    private String course;
+    private String dayte;
+    private String note;
 
-    public Note(int max, String crs, String nt) {
-        setNoteID(max);
-        setCourse(crs);
-        setDayte();
-        setNote(nt);
+    public Note(int max, String course, String note) {
+        this.noteID = max;
+        this.course = course;
+        this.dayte = orderedDate;
+        this.note = note;
     }
 
-    public Note(int nid, String crs, String dt, String nt) {
-        setNoteID(nid);
-        setCourse(crs);
-        setDayte(dt);
-        setNote(nt);
-    }
-
-    public void setNoteID(int n) {
-        int nid = n;
-        // Any validation goes here.
-        noteID = nid;
-    }
-
-    public String setCourse(String c) {
-        String crse = c;
-        // Any checking goes here
-        course = crse;
-        return course;
+    public Note(int noteID, String course, String dayte, String note) {
+        this.noteID = noteID;
+        this.course = course;
+        this.dayte = dayte;
+        this.note = note;
     }
 
     public int getNoteID() {
@@ -44,30 +31,14 @@ public class Note extends CommonCode {
     }
 
     public String getCourse() {
-        // Any checking goes here.
         return course;
-    }
-
-    public void setDayte() {
-        dayte = orderedDate;
-    }
-
-    public void setDayte(String d) {
-        dayte = d;
     }
 
     public String getDayte() {
         return dayte;
     }
 
-    public void setNote(String n) {
-        // Any validation goes here.
-        note = n;
-
-    }
-
     public String getNote() {
-        // Any checking goes here.
         return note;
     }
 

@@ -1,6 +1,8 @@
 
 package sample;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -64,7 +66,7 @@ public class AddCourse extends JFrame implements ActionListener, KeyListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(@NotNull ActionEvent ae) {
         if ("addCourse".equals(ae.getActionCommand())) {
             addCourse(txtNewCourse.getText());
             txtNewCourse.setText("");

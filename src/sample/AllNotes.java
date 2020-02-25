@@ -12,7 +12,6 @@ import java.util.List;
 public class AllNotes extends CommonCode {
 
     private List<Note> allNotes = new ArrayList<>();
-    private String crse = "";
     private int maxID = 0;
 
     public AllNotes() {
@@ -32,9 +31,8 @@ public class AllNotes extends CommonCode {
     }
 
     private void readAllNotes() {
-        List<String> readNotes = new ArrayList<>();
+        List<String> readNotes = readTextFile(appDir + fileSeparator + "Notes.txt");
 
-        readNotes = readTextFile(appDir + fileSeparator + "Notes.txt");
         System.out.println(readNotes.get(0));
 
         if ("File not found".equals(readNotes.get(0))) {

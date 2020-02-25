@@ -3,6 +3,7 @@ package sample;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class AllCourses extends CommonCode {
 
-    private ArrayList<Course> allCourses = new ArrayList<>();
+    private List<Course> allCourses = new ArrayList<>();
     private int maxID = 0;
 
     public AllCourses() {
@@ -30,7 +31,7 @@ public class AllCourses extends CommonCode {
     }
 
     private void readAllCourses() {
-        ArrayList<String> readNotes = new ArrayList<>();
+        List<String> readNotes = new ArrayList<>();
 
         readNotes = readTextFile(appDir + fileSeparator + "Courses.txt");
         System.out.println(readNotes.get(0));
@@ -56,13 +57,13 @@ public class AllCourses extends CommonCode {
         this.maxID++;
     }
 
-    public ArrayList<Course> getAllCourses() {
+    public List<Course> getAllCourses() {
         return this.allCourses;
     }
 
     private void writeAllCourses() {
         String path = appDir + fileSeparator + "Courses.txt";
-        ArrayList<String> writeCourse = new ArrayList<>();
+        List<String> writeCourse = new ArrayList<>();
 
         for (Course n : this.allCourses) {
             String tmp = n.getCourseID() + "\t";

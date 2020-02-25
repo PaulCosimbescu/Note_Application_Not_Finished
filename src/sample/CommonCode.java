@@ -15,6 +15,7 @@ import java.io.Writer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -132,8 +133,8 @@ public class CommonCode {
     // file has to be added. Use appDir if the files are in the application
     // directory. Use fileSeperator if the app may be running under a
     // different OS.
-    public ArrayList<String> readTextFile(String fileName) {
-        ArrayList file = new ArrayList();
+    public List<String> readTextFile(String fileName) {
+        List file = new ArrayList();
         String line;
 
         if ((fileName == null) || (fileName.equals(""))) {
@@ -169,21 +170,18 @@ public class CommonCode {
      * @param aContents
      * @throws java.io.FileNotFoundException
      */
-    public void writeTextFile(String fn, ArrayList<String> outputText)
-            throws FileNotFoundException, IOException {
+    public void writeTextFile(String fn, List<String> outputText)
+            throws IOException {
 
         File fileName = new File(fn);
 
-        Writer output = new BufferedWriter(new FileWriter(fileName));
-        try {
-            for (int i = 0; i < outputText.size(); i++) {
-                output.write(outputText.get(i).toString() + "\n");
+        try (Writer output = new BufferedWriter(new FileWriter(fileName))) {
+            for (String s : outputText) {
+                output.write(s + "\n");
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
             throw e;
-        } finally {
-            output.close();
         }
     }
 

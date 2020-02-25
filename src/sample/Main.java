@@ -1,6 +1,8 @@
 
 package sample;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -62,7 +64,7 @@ public class Main extends JFrame implements ActionListener, KeyListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(@NotNull ActionEvent ae) {
         if ("NewNote".equals(ae.getActionCommand())) {
             addNote(txtNewNote.getText());
             txtNewNote.setText("");
@@ -71,7 +73,7 @@ public class Main extends JFrame implements ActionListener, KeyListener {
             txtNewNote.setText("");
         }
         if ("ShowAllCourses".equals(ae.getActionCommand())) {
-            allCourses(txtNewNote.getText());
+            allCourses();
         }
         if ("Exit".equals(ae.getActionCommand())) {
             System.exit(0);
@@ -223,7 +225,7 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 
         this.setJMenuBar(menuBar);
 
-        setVisible(true); // Needed to ensure that the items can be seen.
+        setVisible(true);
     }
 
     private void model() {
@@ -293,13 +295,13 @@ public class Main extends JFrame implements ActionListener, KeyListener {
     }
 
     private void addAllNotes() {
-        String txtNotes = "";
+        StringBuilder txtNotes = new StringBuilder();
 
         for (Note n : allNotes.getAllNotes()) {
-            txtNotes += n.getNote() + "\n";
+            txtNotes.append(n.getNote()).append("\n");
         }
 
-        txtDisplayNotes.setText(txtNotes);
+        txtDisplayNotes.setText(txtNotes.toString());
     }
 
     private void addNote(String txt) {
@@ -309,14 +311,14 @@ public class Main extends JFrame implements ActionListener, KeyListener {
 
     }
 
-    private void allCourses(String txt) {
-        String allCourses = "";
+    private void allCourses() {
+        StringBuilder allCourses = new StringBuilder();
 
         for (String n : course) {
-            allCourses += n + " ";
+            allCourses.append(n).append(" ");
         }
 
-        addNote(allCourses);
+        addNote(allCourses.toString());
         addAllNotes();
     }
 

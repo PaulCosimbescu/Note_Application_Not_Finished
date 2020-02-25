@@ -16,8 +16,7 @@ public class Course extends CommonCode{
     }
 
     public void setCourseID(int n) {
-        int nid = n;
-        noteID = nid;
+        noteID = n;
     }
 
     public int getCourseID() {

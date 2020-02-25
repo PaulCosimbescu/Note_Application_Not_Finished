@@ -1,6 +1,8 @@
 
 package sample;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -144,7 +146,7 @@ public class CWDetails extends JFrame implements ActionListener, KeyListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
+    public void actionPerformed(@NotNull ActionEvent ae) {
         if ("Return2Notes".equals(ae.getActionCommand())) {
             Main cw = new Main();
         }
