@@ -17,7 +17,6 @@ public class Course extends CommonCode{
 
     public void setCourseID(int n) {
         int nid = n;
-        // Any validation goes here.
         noteID = nid;
     }
 
@@ -26,13 +25,11 @@ public class Course extends CommonCode{
     }
 
     public void setCourse(String n) {
-        // Any validation goes here.
         course = n;
 
     }
 
     public String getCourse() {
-        // Any checking goes here.
         return course;
     }
 

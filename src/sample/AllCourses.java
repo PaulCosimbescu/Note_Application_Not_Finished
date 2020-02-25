@@ -18,14 +18,14 @@ public class AllCourses extends CommonCode {
     }
 
     public final int getMaxID() {
-        maxID++;
-        return maxID;
+        this.maxID++;
+        return this.maxID;
     }
 
     public void addCourse(int maxID, String cs) {
         Course myCourse = new Course(maxID, cs);
 
-        allCourses.add(myCourse);
+        this.allCourses.add(myCourse);
         writeAllCourses();
     }
 
@@ -37,7 +37,7 @@ public class AllCourses extends CommonCode {
 
         if ("File not found".equals(readNotes.get(0))) {
         } else {
-            allCourses.clear();
+            this.allCourses.clear();
 
             for (String str : readNotes) {
                 String[] tmp = str.split("\t");
@@ -45,26 +45,26 @@ public class AllCourses extends CommonCode {
                 int nid = Integer.parseInt(tmp[0]);
                 Course n = new Course(nid, tmp[1]);
 
-                allCourses.add(n);
+                this.allCourses.add(n);
 
-                if (nid > maxID) {
-                    maxID = nid;
+                if (nid > this.maxID) {
+                    this.maxID = nid;
                 }
             }
         }
 
-        maxID++;
+        this.maxID++;
     }
 
     public ArrayList<Course> getAllCourses() {
-        return allCourses;
+        return this.allCourses;
     }
 
     private void writeAllCourses() {
         String path = appDir + fileSeparator + "Courses.txt";
         ArrayList<String> writeCourse = new ArrayList<>();
 
-        for (Course n : allCourses) {
+        for (Course n : this.allCourses) {
             String tmp = n.getCourseID() + "\t";
             tmp += n.getCourse();
             writeCourse.add(tmp);

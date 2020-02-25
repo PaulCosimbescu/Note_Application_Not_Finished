@@ -94,7 +94,7 @@ public class CommonCode {
                                            String altText) {
 
         //Look for the image.
-        String imgLocation = System.getProperty("user.dir") + "//icons//"
+        String imgLocation = System.getProperty("user.dir") + "/icons/"
                 + imageName
                 + ".png";
 

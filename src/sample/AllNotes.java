@@ -3,6 +3,7 @@ package sample;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -10,7 +11,7 @@ import java.util.ArrayList;
  */
 public class AllNotes extends CommonCode {
 
-    private ArrayList<Note> allNotes = new ArrayList<>();
+    private List<Note> allNotes = new ArrayList<>();
     private String crse = "";
     private int maxID = 0;
 
@@ -19,26 +20,26 @@ public class AllNotes extends CommonCode {
     }
 
     public final int getMaxID() {
-        maxID++;
-        return maxID;
+        this.maxID++;
+        return this.maxID;
     }
 
     public void addNote(int maxID, String course, String note) {
         Note myNote = new Note(maxID, course, note);
 
-        allNotes.add(myNote);
+        this.allNotes.add(myNote);
         writeAllNotes();
     }
 
     private void readAllNotes() {
-        ArrayList<String> readNotes = new ArrayList<>();
+        List<String> readNotes = new ArrayList<>();
 
         readNotes = readTextFile(appDir + fileSeparator + "Notes.txt");
         System.out.println(readNotes.get(0));
 
         if ("File not found".equals(readNotes.get(0))) {
         } else {
-            allNotes.clear();
+            this.allNotes.clear();
 
             for (String str : readNotes) {
                 String[] tmp = str.split("\t");
@@ -46,26 +47,26 @@ public class AllNotes extends CommonCode {
                 int nid = Integer.parseInt(tmp[0]);
                 Note n = new Note(nid, tmp[1], tmp[2], tmp[3]);
 
-                allNotes.add(n);
+                this.allNotes.add(n);
 
-                if (nid > maxID) {
-                    maxID = nid;
+                if (nid > this.maxID) {
+                    this.maxID = nid;
                 }
             }
         }
 
-        maxID++;
+        this.maxID++;
     }
 
-    public ArrayList<Note> getAllNotes() {
-        return allNotes;
+    public List<Note> getAllNotes() {
+        return this.allNotes;
     }
 
     private void writeAllNotes() {
         String path = appDir + fileSeparator + "Notes.txt";
         ArrayList<String> writeNote = new ArrayList<>();
 
-        for (Note n : allNotes) {
+        for (Note n : this.allNotes) {
             String tmp = n.getNoteID() + "\t";
             tmp += n.getCourse() + "\t";
             tmp += n.getDayte() + "\t";
@@ -80,12 +81,12 @@ public class AllNotes extends CommonCode {
     }
 
     public String searchAllNotesByKeyword(String noteList, int i, String s) {
-        if (i == allNotes.size()) {
+        if (i == this.allNotes.size()) {
             return noteList;
         }
 
-        if (allNotes.get(i).getNote().contains(s)) {
-            noteList += allNotes.get(i).getNote() + "\n";
+        if (this.allNotes.get(i).getNote().contains(s)) {
+            noteList += this.allNotes.get(i).getNote() + "\n";
         }
 
         return searchAllNotesByKeyword(noteList, i + 1, s);
