@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package sample;
 
 import java.awt.BorderLayout;
@@ -38,16 +34,17 @@ import javax.swing.JToolBar;
  */
 public class Main extends JFrame implements ActionListener, KeyListener {
 
-    JPanel pnl = new JPanel(new BorderLayout());
-    JTextArea txtNewNote = new JTextArea();
-    JTextArea txtDisplayNotes = new JTextArea();
-    List<String> note = new ArrayList<>();
-    List<String> course = new ArrayList<>();
-    JComboBox courseList = new JComboBox();
-    String crse = "";
+    private static JPanel pnl = new JPanel(new BorderLayout());
+    private static JTextArea txtNewNote = new JTextArea();
+    private static JTextArea txtDisplayNotes = new JTextArea();
+    public List<String> note = new ArrayList<>();
+    public List<String> course = new ArrayList<>();
+    private static JComboBox courseList = new JComboBox();
+    private String crse = "";
+    JTextField search = new JTextField();
+
     AllNotes allNotes = new AllNotes();
     CommonCode cc = new CommonCode();
-    JTextField search = new JTextField();
 
     public static void main(String[] args) {
 
