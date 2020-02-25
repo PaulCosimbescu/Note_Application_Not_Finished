@@ -1,142 +1,79 @@
 
 package sample;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.io.File;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
- * @author Paul
+ * @author paul
  */
-public class AddCourse extends JFrame implements ActionListener, KeyListener {
+public class AllCourses extends CommonCode {
 
-    JPanel pnl = new JPanel(new BorderLayout());
-    JTextArea txtNewCourse = new JTextArea();
-    CommonCode cc = new CommonCode();
-    AllCourses allCourses = new AllCourses();
+    private ArrayList<Course> allCourses = new ArrayList<>();
+    private int maxID = 0;
 
-    // Using MVC
-    public AddCourse() {
-        model();
-        view();
-        controller();
+    public AllCourses() {
+        readAllCourses();
     }
 
-    private void view() {
-        Font fnt = new Font("Georgia", Font.PLAIN, 20);
-        setSize(300, 100);
-
-        JPanel pnlWest = new JPanel();
-        pnlWest.setLayout(new BoxLayout(pnlWest, BoxLayout.Y_AXIS));
-        pnlWest.setBorder(BorderFactory.createLineBorder(Color.black));
-        add(pnlWest, BorderLayout.CENTER);
-
-        txtNewCourse.setFont(fnt);
-        pnlWest.add(txtNewCourse);
-
-        JPanel pnlEast = new JPanel();
-
-        JButton button = null;
-        button = makeButton("Create", "addCourse", "Create a new course.", "New");
-        pnlEast.add(button);
-
-        add(pnlEast, BorderLayout.EAST);
-
-        setVisible(true);  // Needed to ensure that the items can be seen.
+    public final int getMaxID() {
+        maxID++;
+        return maxID;
     }
 
-    private void controller() {
-        addAllCourses();
+    public void addCourse(int maxID, String cs) {
+        Course myCourse = new Course(maxID, cs);
+
+        allCourses.add(myCourse);
+        writeAllCourses();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if ("addCourse".equals(ae.getActionCommand())) {
-            addCourse(txtNewCourse.getText());
-            txtNewCourse.setText("");
-        }
+    private void readAllCourses() {
+        ArrayList<String> readNotes = new ArrayList<>();
 
-    }
+        readNotes = readTextFile(appDir + fileSeparator + "Courses.txt");
+        System.out.println(readNotes.get(0));
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-        System.out.println("keyTyped not coded yet.");
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        System.out.println("keyPressed not coded yet.");
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println("keyReleased not coded yet.");
-    }
-
-    private void model() {
-        System.out.println("model not coded yet.");
-    }
-
-    protected JButton makeButton(
-            String imageName,
-            String actionCommand,
-            String toolTipText,
-            String altText) {
-
-        //Create and initialize the button.
-        JButton button = new JButton();
-        button.setToolTipText(toolTipText);
-        button.setActionCommand(actionCommand);
-        button.addActionListener(this);
-
-        //Look for the image.
-        String imgLocation = System.getProperty("user.dir")
-                + "//icons//"
-                + imageName
-                + ".png";
-
-        File fyle = new File(imgLocation);
-        if (fyle.exists() && !fyle.isDirectory()) {
-            // image found
-            Icon img;
-            img = new ImageIcon(imgLocation);
-            button.setIcon(img);
+        if ("File not found".equals(readNotes.get(0))) {
         } else {
-            // image not found
-            button.setText(altText);
-            System.err.println("Resource not found: " + imgLocation);
+            allCourses.clear();
+
+            for (String str : readNotes) {
+                String[] tmp = str.split("\t");
+
+                int nid = Integer.parseInt(tmp[0]);
+                Course n = new Course(nid, tmp[1]);
+
+                allCourses.add(n);
+
+                if (nid > maxID) {
+                    maxID = nid;
+                }
+            }
         }
 
-        return button;
+        maxID++;
     }
 
-    private void addCourse(String txt) {
-
-        allCourses.addCourse(allCourses.getMaxID(), txt);
-        addAllCourses();
-
+    public ArrayList<Course> getAllCourses() {
+        return allCourses;
     }
 
-    private void addAllCourses() {
-        String txtCourses = "";
+    private void writeAllCourses() {
+        String path = appDir + fileSeparator + "Courses.txt";
+        ArrayList<String> writeCourse = new ArrayList<>();
 
-        for (Course n : allCourses.getAllCourses()) {
-            txtCourses += n.getCourse() + "\n";
+        for (Course n : allCourses) {
+            String tmp = n.getCourseID() + "\t";
+            tmp += n.getCourse();
+            writeCourse.add(tmp);
         }
-
+        try {
+            writeTextFile(path, writeCourse);
+        } catch (IOException ex) {
+            System.out.println("Problem! " + path);
+        }
     }
+
 }
